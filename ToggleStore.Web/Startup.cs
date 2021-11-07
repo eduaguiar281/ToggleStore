@@ -10,6 +10,7 @@ using Microsoft.FeatureManagement;
 using Microsoft.FeatureManagement.FeatureFilters;
 using ToggleStore.Web.Data;
 using ToggleStore.Web.FeatureToggles;
+using ToggleStore.Web.FeatureToggles.CustomFilters;
 using ToggleStore.Web.Services;
 using ToggleStore.Web.Services.BlackFriday;
 using ToggleStore.Web.Services.Conteudo;
@@ -45,7 +46,8 @@ namespace ToggleStore.Web
             services.AddFeatureManagement()
                 .AddFeatureFilter<PercentageFilter>()
                 .AddFeatureFilter<TargetingFilter>()
-                .AddFeatureFilter<TimeWindowFilter>();
+                .AddFeatureFilter<TimeWindowFilter>()
+                .AddFeatureFilter<PerfilFeatureFilter>();
 
             services.AddSingleton<ITargetingContextAccessor, UserRolloutTargetingContextAccessor>();
 
