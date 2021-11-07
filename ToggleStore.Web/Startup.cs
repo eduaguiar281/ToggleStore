@@ -50,6 +50,7 @@ namespace ToggleStore.Web
                 .AddFeatureFilter<PerfilFeatureFilter>();
 
             services.AddSingleton<ITargetingContextAccessor, UserRolloutTargetingContextAccessor>();
+            services.AddAzureAppConfiguration();
 
             services.AddControllersWithViews();
         }
@@ -75,6 +76,8 @@ namespace ToggleStore.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseAzureAppConfiguration();
 
             app.UseEndpoints(endpoints =>
             {
