@@ -1,4 +1,5 @@
 ﻿@using ToggleStore.Web.Services.Usuarios
+@using ToggleStore.Web.FeatureToggles
 @model IEnumerable<ToggleStore.Web.Models.ConteudoViewModel>
 @inject IUsuarioService _usuarioService;
 @{
@@ -61,6 +62,10 @@
     .space-ten {
         padding: 10px 0;
     }
+    .checked {
+        color: orange;
+    }
+
 </style>
 <div class="container">
     <h1>Fundamentos de Arquitetura</h1>
@@ -70,33 +75,45 @@
             foreach (var conteudo in Model.OrderBy(c => c.Descricao))
             {
                 <div class="col-md-4 col-sm-8">
-                    <span class="thumbnail">
-                        <img width="200" height="200" src="~/Images/@conteudo.Imagem"/>
-                        <h4>@conteudo.Nome</h4>
-                        <p>@conteudo.Descricao</p>
-                        <hr class="line">
-                        @if (_usuarioService.ConteudoLiberado(CategoriaConteudo.Arquitetura, User))
-                        {
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <a class="btn btn-info">Acessar Curso</a>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <p class="price">@conteudo.Valor.ToString("C")</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-6">
-                                    <a class="btn btn-info">Saiba Mais</a>
-                                </div>
-                            </div>
-                        }
-                    </span>
+                            <span class="thumbnail">
+                                <img width="200" height="200" src="~/Images/@conteudo.Imagem" />
+                                <h4>@conteudo.Nome</h4>
+                                <p>@conteudo.Descricao</p>
+                                <hr class="line">
+                                @if (_usuarioService.ConteudoLiberado(CategoriaConteudo.Arquitetura, User))
+                                {
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <a class="btn btn-info">Acessar Curso</a>
+                                        </div>
+                                    </div>
+                                    <feature name="@FeatureTogglesConstantes.AvaliarCursos">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-6">
+                                                <h4>Avalie</h4>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star checked"></span>
+                                                <span class="fa fa-star"></span>
+                                                <span class="fa fa-star"></span>
+                                            </div>
+                                        </div>
+                                    </feature>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <p class="price">@conteudo.Valor.ToString("C")</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6">
+                                            <a class="btn btn-info">Saiba Mais</a>
+                                        </div>
+                                    </div>
+                                }
+                            </span>
                 </div>
             }
         }

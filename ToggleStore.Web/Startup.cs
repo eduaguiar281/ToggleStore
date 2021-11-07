@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.FeatureManagement;
 using Microsoft.FeatureManagement.FeatureFilters;
 using ToggleStore.Web.Data;
+using ToggleStore.Web.FeatureToggles;
 using ToggleStore.Web.Services;
 using ToggleStore.Web.Services.Conteudo;
 using ToggleStore.Web.Services.Usuarios;
@@ -40,7 +41,9 @@ namespace ToggleStore.Web
             services.AddScoped<IClaimsTransformation, AddRolesClaimsTransformation>();
 
             services.AddFeatureManagement()
-                .AddFeatureFilter<PercentageFilter>();
+                .AddFeatureFilter<PercentageFilter>()
+                .AddFeatureFilter<TargetingFilter>();
+            services.AddSingleton<ITargetingContextAccessor, UserRolloutTargetingContextAccessor>();
 
             services.AddControllersWithViews();
         }
