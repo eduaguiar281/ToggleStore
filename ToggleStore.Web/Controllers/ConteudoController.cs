@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.FeatureManagement;
-using Microsoft.FeatureManagement.Mvc;
+using System.Threading.Tasks;
 using ToggleStore.Web.FeatureToggles;
 using ToggleStore.Web.Models;
 using ToggleStore.Web.Services.Conteudo;
@@ -31,6 +30,5 @@ namespace ToggleStore.Web.Controllers
                 return View(_conteudoService.ObterConteudo(CategoriaConteudo.ClassRoom));
             return View("/Views/Conteudo/ClassRoomTenhoInteresse.cshtml");
         }
-            
     }
 }
