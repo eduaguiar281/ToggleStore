@@ -16,6 +16,8 @@ namespace ToggleStore.Web.Services.Conteudo
                     return ObterConteudoAvancado();
                 case CategoriaConteudo.Arquitetura:
                     return ObterConteudoArquitetura();
+                case CategoriaConteudo.ClassRoom:
+                    return ObterConteudoClassRoom();
                 default:
                     throw new ArgumentException($"Não foi possível localizar informações para categoriaConteudo {categoriaConteudo}");
             }
@@ -109,6 +111,36 @@ namespace ToggleStore.Web.Services.Conteudo
                 Descricao = "Conteúdo Basico sobre Cloud em Azure",
                 Valor = 25,
                 Imagem = "azure.png",
+            };
+        }
+        private IEnumerable<ConteudoViewModel> ObterConteudoClassRoom()
+        {
+            yield return new()
+            {
+                Id = Guid.NewGuid(),
+                CategoriaConteudo = CategoriaConteudo.ClassRoom,
+                Nome = "DDD na Prática",
+                Descricao = "Vamos te ajudar a dominar o DDD",
+                Valor = 250,
+                Imagem = "dddNaPratica.png",
+            };
+            yield return new()
+            {
+                Id = Guid.NewGuid(),
+                CategoriaConteudo = CategoriaConteudo.ClassRoom,
+                Nome = "CQRS na Prática",
+                Descricao = "Vamos te ajudar a dominar o CQRS",
+                Valor = 250,
+                Imagem = "CQRS.png",
+            };
+            yield return new()
+            {
+                Id = Guid.NewGuid(),
+                CategoriaConteudo = CategoriaConteudo.ClassRoom,
+                Nome = "Dominando RabbitMQ",
+                Descricao = "Vamos te ajudar a dominar o RabbitMQ",
+                Valor = 250,
+                Imagem = "rabbit.png",
             };
         }
     }

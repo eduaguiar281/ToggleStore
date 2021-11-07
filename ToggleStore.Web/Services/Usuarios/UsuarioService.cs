@@ -44,7 +44,7 @@ namespace ToggleStore.Web.Services.Usuarios
             if (_usuariosPremium.Any(u => u.Equals(email, StringComparison.OrdinalIgnoreCase)))
                 return CategoriaConteudo.Fundamentos | CategoriaConteudo.Avancado | CategoriaConteudo.Arquitetura;
             if (_usuariosExclusivo.Any(u => u.Equals(email, StringComparison.OrdinalIgnoreCase)))
-                return CategoriaConteudo.Fundamentos | CategoriaConteudo.Avancado | CategoriaConteudo.Arquitetura;
+                return CategoriaConteudo.Fundamentos | CategoriaConteudo.Avancado | CategoriaConteudo.Arquitetura | CategoriaConteudo.ClassRoom;
 
             return CategoriaConteudo.None;
         }

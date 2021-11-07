@@ -8,6 +8,7 @@ namespace ToggleStore.Web.Models
         None = 0,
         Fundamentos = 1,
         Avancado = 2,
-        Arquitetura = 4
+        Arquitetura = 4,
+        ClassRoom = 8
     }
 }
