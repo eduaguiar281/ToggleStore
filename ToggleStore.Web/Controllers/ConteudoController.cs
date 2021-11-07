@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.FeatureManagement;
 using Microsoft.FeatureManagement.Mvc;
 using ToggleStore.Web.FeatureToggles;
 using ToggleStore.Web.Models;
@@ -9,10 +11,12 @@ namespace ToggleStore.Web.Controllers
     public class ConteudoController : Controller
     {
         private readonly IConteudoService _conteudoService;
+        private readonly IFeatureManager _featureManager;
 
-        public ConteudoController(IConteudoService conteudoService)
+        public ConteudoController(IConteudoService conteudoService, IFeatureManager featureManager)
         {
             _conteudoService = conteudoService;
+            _featureManager = featureManager;
         }
 
         public IActionResult Fundamentos() => View(_conteudoService.ObterConteudo(CategoriaConteudo.Fundamentos));
@@ -21,7 +25,12 @@ namespace ToggleStore.Web.Controllers
 
         public IActionResult Arquitetura() => View(_conteudoService.ObterConteudo(CategoriaConteudo.Arquitetura));
 
-        [FeatureGate(FeatureTogglesConstantes.AcessoClassRoom)]
-        public IActionResult ClassRoom() => View(_conteudoService.ObterConteudo(CategoriaConteudo.ClassRoom));
+        public async Task<IActionResult> ClassRoom()
+        {
+            if (await _featureManager.IsEnabledAsync(FeatureTogglesConstantes.AcessoClassRoom))
+                return View(_conteudoService.ObterConteudo(CategoriaConteudo.ClassRoom));
+            return View("/Views/Conteudo/ClassRoomTenhoInteresse.cshtml");
+        }
+            
     }
 }
