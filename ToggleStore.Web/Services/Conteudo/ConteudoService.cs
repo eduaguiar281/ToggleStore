@@ -1,23 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using ToggleStore.Web.Models;
+using ToggleStore.Web.Services.BlackFriday;
 
 namespace ToggleStore.Web.Services.Conteudo
 {
     public class ConteudoService : IConteudoService
     {
+        private readonly IBlackFridayService _blackFridayService;
+
+        public ConteudoService(IBlackFridayService blackFridayService)
+        {
+            _blackFridayService = blackFridayService;   
+        }
+
         public IEnumerable<ConteudoViewModel> ObterConteudo(CategoriaConteudo categoriaConteudo)
         {
             switch (categoriaConteudo)
             {
                 case CategoriaConteudo.Fundamentos:
-                    return ObterConteudoFundamentos();
+                    return _blackFridayService.AplicarDesconto(ObterConteudoFundamentos());
                 case CategoriaConteudo.Avancado:
-                    return ObterConteudoAvancado();
+                    return _blackFridayService.AplicarDesconto(ObterConteudoAvancado());
                 case CategoriaConteudo.Arquitetura:
-                    return ObterConteudoArquitetura();
+                    return _blackFridayService.AplicarDesconto(ObterConteudoArquitetura());
                 case CategoriaConteudo.ClassRoom:
-                    return ObterConteudoClassRoom();
+                    return _blackFridayService.AplicarDesconto(ObterConteudoClassRoom());
                 default:
                     throw new ArgumentException($"Não foi possível localizar informações para categoriaConteudo {categoriaConteudo}");
             }
@@ -37,7 +45,7 @@ namespace ToggleStore.Web.Services.Conteudo
             yield return new()
             {
                 Id = Guid.NewGuid(),
-                CategoriaConteudo = CategoriaConteudo.Avancado,
+                CategoriaConteudo = CategoriaConteudo.Arquitetura,
                 Nome = "Meu Primeiro Microserviço",
                 Descricao = "Fundamentos de desenvolvimento de microserviços",
                 Valor = 150,
@@ -46,7 +54,7 @@ namespace ToggleStore.Web.Services.Conteudo
             yield return new()
             {
                 Id = Guid.NewGuid(),
-                CategoriaConteudo = CategoriaConteudo.Avancado,
+                CategoriaConteudo = CategoriaConteudo.Arquitetura,
                 Nome = "Fundamentos de Arquitetura em Nuvem",
                 Descricao = "Aprendendo a arquitetar soluções em nuvem usando o Azure",
                 Valor = 150,

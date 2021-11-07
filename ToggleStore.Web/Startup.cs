@@ -11,6 +11,7 @@ using Microsoft.FeatureManagement.FeatureFilters;
 using ToggleStore.Web.Data;
 using ToggleStore.Web.FeatureToggles;
 using ToggleStore.Web.Services;
+using ToggleStore.Web.Services.BlackFriday;
 using ToggleStore.Web.Services.Conteudo;
 using ToggleStore.Web.Services.Usuarios;
 
@@ -39,10 +40,13 @@ namespace ToggleStore.Web
             services.AddScoped<IConteudoService, ConteudoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IClaimsTransformation, AddRolesClaimsTransformation>();
+            services.AddScoped<IBlackFridayService, BlackFridayService>();
 
             services.AddFeatureManagement()
                 .AddFeatureFilter<PercentageFilter>()
-                .AddFeatureFilter<TargetingFilter>();
+                .AddFeatureFilter<TargetingFilter>()
+                .AddFeatureFilter<TimeWindowFilter>();
+
             services.AddSingleton<ITargetingContextAccessor, UserRolloutTargetingContextAccessor>();
 
             services.AddControllersWithViews();
