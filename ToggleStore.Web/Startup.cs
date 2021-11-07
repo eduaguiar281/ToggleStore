@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.FeatureManagement;
 using ToggleStore.Web.Data;
 using ToggleStore.Web.Services;
 using ToggleStore.Web.Services.Conteudo;
@@ -36,6 +37,8 @@ namespace ToggleStore.Web
             services.AddScoped<IConteudoService, ConteudoService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IClaimsTransformation, AddRolesClaimsTransformation>();
+
+            services.AddFeatureManagement();
 
             services.AddControllersWithViews();
         }
