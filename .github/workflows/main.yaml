@@ -1,9 +1,9 @@
 name: Docker Image CI
 on:
   push:
-  workflow_dispatch:
     branches:
       - master
+  workflow_dispatch:
 env:
   SH8: $(echo ${GITHUB_SHA} | cut -c1-8)
 jobs:
