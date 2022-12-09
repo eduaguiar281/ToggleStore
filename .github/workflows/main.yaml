@@ -2,7 +2,7 @@ name: Docker Image CI
 on:
   push:
     branches:
-      - main
+      - master
 env:
   SH8: $(echo ${GITHUB_SHA} | cut -c1-8)
 jobs:
