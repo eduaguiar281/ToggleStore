@@ -34,8 +34,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    - name: Azure WebApp Container - Deployment da Aplicacao
-      uses: Azure/webapps-container-deploy@v1
+    - uses: azure/webapps-deploy@v2
       with:
-        app-name: aguiartogglestore
+        app-name: 'aguiartogglestore'
         images: ${{ secrets.DOCKER_CONTAINER_REGISTRY }}/tooglestoreweb:latest
